@@ -1,0 +1,61 @@
+.App {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2em;
+  text-align: center;
+  background-color: #151515;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.menu {
+  text-align: left;
+}
+
+.dropdown {
+  margin: 5px 0;
+}
+
+.dropdown-label {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 2px 0;
+}
+
+.dropdown-content {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.dropdown-content .dropdown-item {
+  margin: 2px 0;
+}
+
+.dropdown-content .dropdown-label {
+  padding: 8px;
+  background-color: #0056b3;
+  color: white;
+  border-radius: 5px;
+}
+
+.dropdown-content .dropdown-label:hover {
+  background-color: #004080;
+}
+
+.item-description {
+  margin-top: 5px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  color: #333;
+}

@@ -5,7 +5,6 @@ import "./App.css";
 const App = () => {
   const [searchInputTxt, setSearchInputTxt] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedMeal, setSelectedMeal] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -17,11 +16,10 @@ const App = () => {
 
       try {
         const response = await axios.get(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInputTxt}`
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInputTxt}`
         );
         if (response.data.meals) {
           setSearchResults(response.data.meals);
-          console.log(response.data);
           setError(null);
         } else {
           setSearchResults([]);
@@ -41,29 +39,13 @@ const App = () => {
     setSearchInputTxt(e.target.value);
   };
 
-  const handleMealClick = async (mealId) => {
-    try {
-      const response = await axios.get(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
-      );
-      setSelectedMeal(response.data.meals[0]);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching meal details:", error);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setSelectedMeal(null);
-  };
-
   return (
     <div className="App">
       <h1>Food Search App</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
-          placeholder="Enter an ingredient or meal name..."
+          placeholder="Enter a meal name..."
           value={searchInputTxt}
           onChange={handleInputChange}
         />
@@ -76,42 +58,12 @@ const App = () => {
 
       <div className="search-results">
         {searchResults.map((meal) => (
-          <div
-            key={meal.idMeal}
-            className="meal"
-            onClick={() => handleMealClick(meal.idMeal)}
-          >
+          <div key={meal.idMeal} className="meal">
             <h2>{meal.strMeal}</h2>
             <img src={meal.strMealThumb} alt={meal.strMeal} />
           </div>
         ))}
       </div>
-
-      {selectedMeal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>
-              &times;
-            </span>
-            <h2>{selectedMeal.strMeal}</h2>
-            <img src={selectedMeal.strMealThumb} alt={selectedMeal.strMeal} />
-            <h3>Ingredients</h3>
-            <ul>
-              {Array.from({ length: 20 }, (_, i) => i + 1).map(
-                (index) =>
-                  selectedMeal[`strIngredient${index}`] && (
-                    <li key={index}>
-                      {selectedMeal[`strIngredient${index}`]} -{" "}
-                      {selectedMeal[`strMeasure${index}`]}
-                    </li>
-                  )
-              )}
-            </ul>
-            <h3>Instructions</h3>
-            <p>{selectedMeal.strInstructions}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

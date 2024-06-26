@@ -1,68 +1,53 @@
-import React, { useState } from 'react';
-import './Feedback.css'; // Assuming you have a separate CSS file
+import React, {useState} from "react";
+import "./Feedback.css";
 
 const FeedbackForm = () => {
-  const [selectedFeedback, setSelectedFeedback] = useState('');
-  
-  const [serverResponse, setServerResponse] = useState('');
+  const [selectedFeedback, setSelectedFeedback] = useState("");
+
+  const [serverResponse, setServerResponse] = useState("");
 
   const handleFeedbackClick = (feedback) => {
     setSelectedFeedback(feedback);
-  };
-
-  
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Simulate submitting feedback to a server (for demonstration purposes)
-    if (selectedFeedback) {
-     
-      setServerResponse('Thank you for your feedback and suggestions!');
+    if(selectedFeedback){
+      setServerResponse("thank you Your feedback");
       setSelectedFeedback('');
-     
     }
-  };
-
+  }
   return (
-    <div className="feedback-container">
+    <div>
       <h1>User Feedback</h1>
-      <div className="feedback-buttons">
-        <button onClick={() => handleFeedbackClick('Happy')} className="feedback-button">
-          Happy
-        </button>
-        <button onClick={() => handleFeedbackClick('Sad')} className="feedback-button">
-          Sad
-        </button>
-        <button onClick={() => handleFeedbackClick('Unhappy')} className="feedback-button">
-          Unhappy
-        </button>
-        <button onClick={() => handleFeedbackClick('Excited')} className="feedback-button">
-          Excited
-        </button>
+      <div>
+        <button onClick={() => handleFeedbackClick("Happy")}>Happy</button>
+        <button onClick={() => handleFeedbackClick("sad")}>Sad</button>
+        <button onClick={() => handleFeedbackClick("Unhappy")}>Unhappy</button>
+        <button onClick={() => handleFeedbackClick("Excited")}>Excited</button>
       </div>
       {selectedFeedback && (
-        <div className="feedback-form">
-          <h2>Feedback Form</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Your Feedback:</label>
-              <textarea
-                value={selectedFeedback}
-                readOnly
-                rows={4}
-                placeholder="Type your feedback here..."
-              />
+        <div>
+          <h2>Feedback form</h2>
+          <form action="" onSubmit={handleSubmit}>
+            <div>
+            <label htmlFor="">Your Feedback:</label>
+            <textarea
+              value={selectedFeedback}
+              readOnly
+              rows={4}
+              placeholder="Type your feedback"
+            />
             </div>
-            
-            <button type="submit">Submit Feedback</button>
+            <button type='submit'>Submit Feedback</button>
           </form>
+
         </div>
       )}
       {serverResponse && (
-        <div className= "server-response">
+        <div>
           <p>{serverResponse}</p>
-        </div>
+          </div>
       )}
     </div>
   );

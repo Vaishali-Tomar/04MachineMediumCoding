@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ChipsInput.css'; // Assuming you have a separate CSS file
+//import './ChipsInput.css'; // Assuming you have a separate CSS file
 
 const ChipsInput = () => {
   const [inputValue, setInputValue] = useState('');

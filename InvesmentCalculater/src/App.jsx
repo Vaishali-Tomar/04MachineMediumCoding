@@ -8,25 +8,24 @@ function App() {
     const [investmentDuration, setInvestmentDuration] = useState(10);
     const [futureValue, setFutureValue] = useState(null);
 
-    const calculateInvestment = () => {
-        const rate = interestRate / 100;
-        let futureValue = currentSavings;
+  const calculateInvestment = () => {
+    const rate = interestRate / 100;
+    let futureValue = currentSavings;
 
-        for (let year = 1; year <= investmentDuration; year++) {
-            futureValue = futureValue * (1 + rate) + yearlySavings;
-        }
+    for(let year=0; year<investmentDuration; year++){
+        futureValue = futureValue * (1 + rate) + yearlySavings;
+    }
 
-        setFutureValue(futureValue.toFixed(2));
-    };
+    setFutureValue(futureValue.toFixed(2));
+  }
 
-    const resetForm = () => {
-        setCurrentSavings(10000);
-        setYearlySavings(1200);
-        setInterestRate(7);
-        setInvestmentDuration(10);
-        setFutureValue(null);
-    };
-
+  const resetForm = () => {
+    setCurrentSavings(10000);
+    setYearlySavings(1200);
+    setInterestRate(7);
+    setInvestmentDuration(10);
+    setFutureValue(null);
+  }
     return (
         <div className="App">
             <h1>Investment Calculator</h1>

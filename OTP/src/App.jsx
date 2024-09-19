@@ -5,30 +5,31 @@ const App = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [isOtpValid, setIsOtpValid] = useState(true);
   const [attempts, setAttempts] = useState(0);
-
+  
   const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
+  if(isNaN(element.value)) return false;
 
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+  setOtp([...otp.map(( d, id) => (id===index ? element.value : d))])
 
-    // Focus next input
-    if (element.nextSibling && element.value) {
-      element.nextSibling.focus();
-    }
+  if(element.nextSibling && element.value){
+    element.nextSibling.focus();
+  }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const enteredOtp = otp.join("");
-    const correctOtp = "123456"; // This would come from the backend in a real application
+    e.preventDefult();
+
+    const enteredOtp = otp.join();
+    const correctOtp = "123456";
 
     setAttempts(attempts + 1);
     setIsOtpValid(enteredOtp === correctOtp);
-  };
+  }
 
   return (
     <div className="App">
-      <h1>OTP Verification</h1>
+      <h1>OTP verification</h1>
+      
       <form onSubmit={handleSubmit}>
         {otp.map((data, index) => (
           <input
@@ -42,7 +43,8 @@ const App = () => {
             onFocus={(e) => e.target.select()}
           />
         ))}
-        <button type="submit">Verify OTP</button>
+     
+      <button type="submit">Verify OTP</button>
       </form>
       {!isOtpValid && <p className="error">Invalid OTP. Please try again.</p>}
       <p>Attempts: {attempts}</p>

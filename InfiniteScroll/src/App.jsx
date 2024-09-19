@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import './App.css';
+
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -11,18 +12,17 @@ const App = () => {
   useEffect(() => {
     fetchData();
   }, [page]);
-
   const fetchData = async () => {
     setLoading(true);
-    try {
+    try{
       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`);
-      setData(prevData => [...prevData, ...response.data]);
+      setData(predata => [...predata, ...response.data]);
       setLoading(false);
-    } catch (error) {
+    }catch (error) {
       console.error("Error fetching data: ", error);
       setLoading(false);
     }
-  };
+  }
 
   const lastElementRef = node => {
     if (loading) return;
@@ -36,19 +36,19 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Infinite Scrolling Example</h1>
+    <div>
+      <h1>Infinite Scrolling </h1>
       <ul>
-        {data.map((item, index) => (
-          <li key={item.id} ref={data.length === index + 1 ? lastElementRef : null}>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-          </li>
-        ))}
+       {data.map((item, index) => {
+        <li key={item.id} ref={data.length === index + 1 ? lastElementRef : null}>
+          <h3>{item.tittle}</h3>
+          <p>{item.body}</p>
+        </li>
+       })}
       </ul>
       {loading && <p>Loading more items...</p>}
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

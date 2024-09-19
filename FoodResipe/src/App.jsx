@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
+import React, {useState, useEffect} from 'react'
+import './App.css';
+import axios from 'axios';
+
 
 const App = () => {
   const [searchInputTxt, setSearchInputTxt] = useState("");
@@ -8,64 +9,54 @@ const App = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      if (searchInputTxt.trim() === "") {
+    const fetchResipes = async () => {
+      if(searchInputTxt.trim() === ""){
         setSearchResults([]);
         return;
       }
 
-      try {
-        const response = await axios.get(
-          `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInputTxt}`
-        );
-        if (response.data.meals) {
-          setSearchResults(response.data.meals);
+      try{
+        const respoonse =  await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInputTxt}`);
+        console.log(respoonse);
+        if(respoonse.data.meals){
+          setSearchResults(respoonse.data.meals);
           setError(null);
-        } else {
+        }else{
           setSearchResults([]);
-          setError("No recipes found.");
+          setError("No Resipe Found");
+
         }
-      } catch (error) {
+      }catch(error){
         console.error("Error fetching data:", error);
         setSearchResults([]);
         setError("Error fetching data. Please try again.");
       }
-    };
+    }
+    fetchResipes();
+  }, [searchInputTxt])
 
-    fetchRecipes();
-  }, [searchInputTxt]);
-
-  const handleInputChange = (e) => {
+  const handleInputChange = (e)=> {
     setSearchInputTxt(e.target.value);
-  };
-
+  }
   return (
-    <div className="App">
+    <div>
       <h1>Food Search App</h1>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder="Enter a meal name..."
-          value={searchInputTxt}
-          onChange={handleInputChange}
-        />
-        <button onClick={() => setSearchInputTxt(searchInputTxt)}>
-          Search
-        </button>
+      <form action="" onSubmit={(e) => e.preventDefault()}>
+        <input type="text"  value={searchInputTxt} onChange={handleInputChange} />
+        <button onClick={() =>setSearchInputTxt(searchInputTxt)}>Search</button>
+
       </form>
-
-      {error && <p className="error-message">{error}</p>}
-
-      <div className="search-results">
+      {error && <p>{error}</p>}
+      <div>
         {searchResults.map((meal) => (
-          <div key={meal.idMeal} className="meal">
-            <h2>{meal.strMeal}</h2>
-            <img src={meal.strMealThumb} alt={meal.strMeal} />
-          </div>
+         <div key={meal.idMeal}>
+          <h2>{meal.strMeal}</h2>
+          <img src={meal.strMealThumb} alt={meal.strMeal} />
+         </div>
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

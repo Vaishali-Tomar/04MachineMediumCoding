@@ -7,31 +7,29 @@ function App() {
     const [speed, setSpeed] = useState(1);
     const intervalRef = useRef(null);
 
-    useEffect(() => {
-        if (isRunning) {
-            intervalRef.current = setInterval(() => {
-                setProgress((prev) => {
-                    if (prev >= 100) {
-                        clearInterval(intervalRef.current);
-                        return 100;
-                    }
-                    return prev + speed;
-                });
-            }, 1000);
-        } else {
-            clearInterval(intervalRef.current);
-        }
+   useEffect(() => {
+    if(isRunning){
+        intervalRef.current = setInterval(() => {
+            setProgress((prev) =>{
+                if(prev >= 100){
+                    clearInterval(intervalRef.current);
+                    return 100;
+                }
+                return prev + speed;
+            })
+        }, 1000)
+    }else {
+        clearInterval(intervalRef.current)
+    }
+    return () => clearInterval(intervalRef.current)
+   }, [isRunning, speed])
 
-        return () => clearInterval(intervalRef.current);
-    }, [isRunning, speed]);
-
-    const handleStart = () => setIsRunning(true);
-    const handlePause = () => setIsRunning(false);
-    const handleReset = () => {
-        setIsRunning(false);
-        setProgress(0);
-    };
-
+   const handleStart = () => setIsRunning(true);
+   const handlePause = () => setIsRunning(false);
+   const handleReset = () => {
+    setIsRunning(false);
+    setProgress(0);
+   }
     return (
         <div className="App">
             <h1>Progress Bar</h1>

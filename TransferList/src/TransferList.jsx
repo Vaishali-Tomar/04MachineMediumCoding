@@ -6,44 +6,47 @@ const TransferList = () => {
   const [rightList, setRightList] = useState([]);
 
   const moveRight = () => {
-    setRightList(rightList.concat(leftList));
+    setRightList(rightList.concat(leftList))
     setLeftList([]);
-  };
+  }
 
   const moveLeft = () => {
-    setLeftList(leftList.concat(rightList));
-    setRightList([]);
-  };
+   setLeftList(leftList.concat(rightList));
+   setRightList([]);
+  }
 
   const moveSelectedToRight = (item) => {
     setRightList([...rightList, item]);
     setLeftList(leftList.filter(i => i !== item));
-  };
-
+  } 
   const moveSelectedToLeft = (item) => {
     setLeftList([...leftList, item]);
     setRightList(rightList.filter(i => i !== item));
-  };
+  } 
 
+
+  
   return (
     <div className="transfer-list">
-      <div className="list-container">
+      <div>
         <h3>Left List</h3>
         <ul>
-          {leftList.map(item => (
-            <li key={item} onClick={() => moveSelectedToRight(item)}>{item}</li>
-          ))}
+          {leftList.map(item => 
+            <li key={item} onClick={() =>moveSelectedToRight(item)}>{item}</li>
+          )}
         </ul>
       </div>
-      <div className="controls">
-        <button onClick={moveRight}>&gt;&gt;</button>
-        <button onClick={moveLeft}>&lt;&lt;</button>
+      <div>
+        <button onClick={moveLeft}>&gt;&gt;</button>
+        <button onClick={moveRight}>&lt;&lt;</button>
       </div>
-      <div className="list-container">
+      <div>
         <h3>Right List</h3>
         <ul>
           {rightList.map(item => (
-            <li key={item} onClick={() => moveSelectedToLeft(item)}>{item}</li>
+            <li key={item} onClick={() => moveSelectedToLeft}>
+
+            </li>
           ))}
         </ul>
       </div>
